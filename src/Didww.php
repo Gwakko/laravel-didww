@@ -13,6 +13,21 @@ class Didww extends Core
     }
 
     /**
+     * This method will ...
+     *
+     * @param string $country_iso Country ISO Code
+     * @param string $city_prefix City Prefix
+     * @param string $city_id City ID
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/
+     */
+    public function getCoverage($country_iso = null, $city_prefix = null, $city_id = null)
+    {
+        return $this->_handleQuery('getcoverage', compact(['country_iso','city_prefix','city_id']));
+    }
+
+    /**
      * This method will return list of regions from DIDWW coverage list.
      *
      * @param string $country_iso Country ISO Code
@@ -25,6 +40,34 @@ class Didww extends Core
     public function getDidwwRegions($country_iso = null, $city_prefix = null, $last_request_gmt = null)
     {
         return $this->_handleQuery('getdidwwregions', compact(['country_iso','city_prefix','last_request_gmt']));
+    }
+
+    /**
+     * This method will return list of available countries from DIDWW coverage list.
+     *
+     * @param string $country_iso Country ISO Code
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/#get_countries
+     */
+    public function getDidwwCountries($country_iso = null)
+    {
+        return $this->_handleQuery('getdidwwcountries', compact(['country_iso']));
+    }
+
+    /**
+     * This method will return list of cities from DIDWW coverage list.
+     *
+     * @param string $country_iso Country ISO Code
+     * @param string $city_id City ID
+     * @param int $active 1 - returns cities with available DID numbers, 0 - all cities will be returned
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/#get_cities
+     */
+    public function getDidwwCities($country_iso = null, $city_id = null, $active = null)
+    {
+        return $this->_handleQuery('getdidwwcities', compact(['country_iso','city_id','active']));
     }
 
 
@@ -55,6 +98,21 @@ class Didww extends Core
     public function updatePstnRates($rates)
     {
         return $this->_handleQuery('updatepstnrates', compact(['rates']));
+    }
+
+
+    /**
+     * This method will return PSTN traffic.
+     *
+     * @param string $from_date
+     * @param string $to_date
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/
+     */
+    public function pstnTraffic($from_date, $to_date)
+    {
+        return $this->_handleQuery('pstn_traffic', compact(['from_date','to_date']));
     }
 
 
@@ -127,6 +185,22 @@ class Didww extends Core
 
 
     /**
+     * This method will ...
+     *
+     * @param string $customer_id Customer ID (from your local database, any digit)
+     * @param string $did_number DID Number
+     * @param int $status ...
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/
+     */
+    public function orderAutorenewStatus($customer_id, $did_number, $status)
+    {
+        return $this->_handleQuery('order_autorenew_status', compact(['customer_id','did_number','status']));
+    }
+
+
+    /**
      * This method will change/update forwarding data for DID Number.
      *
      * @param string $customer_id Customer ID (from your local database, any digit)
@@ -139,6 +213,20 @@ class Didww extends Core
     public function updateMapping($customer_id, $did_number, $map_data)
     {
         return $this->_handleQuery('updatemapping', compact(['customer_id','did_number','map_data']));
+    }
+
+
+    /**
+     * This method will return array of balances of all customers.
+     *
+     * @param string $customer_id Customer ID (from your local database, any digit)
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/#prepaid_balance
+     */
+    public function getPrepaidBalanceList($customer_id)
+    {
+        return $this->_handleQuery('getprepaidbalancelist', compact(['customer_id']));
     }
 
 
@@ -205,6 +293,20 @@ class Didww extends Core
 
 
     /**
+     * This method will return list of orders for given customer.
+     *
+     * @param string $customer_id Customer ID (from your local database, any digit)
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/#get_service_list
+     */
+    public function getServiceList($customer_id)
+    {
+        return $this->_handleQuery('getservicelist', compact(['customer_id']));
+    }
+
+
+    /**
      * This method will return order details on the API for the component synchronization.
      *
      * @param string $customer_id Customer ID (from your local database, any digit)
@@ -242,6 +344,29 @@ class Didww extends Core
 
 
     /**
+     * This method will return call data records for specified User, DID number, or date period.
+     *
+     * @param string $customer_id Customer ID (from your local database, any digit)
+     * @param string $from_date Start date from which call records will be retrieved
+     * @param string $to_date End date date to which call records will be retrieved
+     * @param string $destination ...
+     * @param string $source ...
+     * @param int $success ...
+     * @param string $limit Maximum number of call log records to return
+     * @param string $offset The offset of the position
+     * @param string $order Order records by a specific field
+     * @param string $order_Dir Sort rows in ascending or descending order
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/
+     */
+    public function getSMSLog($customer_id = null, $from_date = null, $to_date = null, $destination = null, $source = null, $success = null, $limit = null, $offset = null, $order = null, $order_Dir = null)
+    {
+        return $this->_handleQuery('getsmslog', compact(['customer_id','from_date','to_date','destination','source','success','limit','offset','order','order_Dir']));
+    }
+
+
+    /**
      * This method will return data for invoice generation based on CDR.
      *
      * @param string $customer_id Customer ID (from your local database, any digit)
@@ -254,6 +379,21 @@ class Didww extends Core
     public function callHistoryInvoices($customer_id = null, $from_date = null, $to_date = null)
     {
         return $this->_handleQuery('callhistory_invoices', compact(['customer_id','from_date','to_date']));
+    }
+
+
+    /**
+     * This method will ...
+     *
+     * @param int $month
+     * @param int $year
+     * @return mixed
+     *
+     * @see https://www.didww.com/api/
+     */
+    public function getInvoiceDetails($month = null, $year = null)
+    {
+        return $this->_handleQuery('getinvoicedetails', compact(['month','year']));
     }
 
 }

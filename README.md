@@ -52,5 +52,5 @@ return [
 
 # Usage
 ```php
-$vi = Didww::getDIDs($client_id);
+$details = Didww::getDidwwApiDetails();
 ```

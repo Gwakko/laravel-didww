@@ -15,7 +15,6 @@ class Didww extends Core
     /**
      * This method will return list of regions from DIDWW coverage list.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $country_iso Country ISO Code
      * @param string $city_prefix City Prefix
      * @param string $last_request_gmt Date in UNIXTIME GMT format. Get list of updated regions starting from date of the last request
@@ -23,16 +22,15 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#get_didww_regions
      */
-    public function getDidwwRegions($auth_string, $country_iso = null, $city_prefix = null, $last_request_gmt = null)
+    public function getDidwwRegions($country_iso = null, $city_prefix = null, $last_request_gmt = null)
     {
-        return $this->_handleQuery('getdidwwregions', compact(['auth_string','country_iso','city_prefix','last_request_gmt']));
+        return $this->_handleQuery('getdidwwregions', compact(['country_iso','city_prefix','last_request_gmt']));
     }
 
 
     /**
      * This method will return list of supported PSTN prefixes from DIDWW.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $country_iso Country ISO Code
      * @param string $pstn_prefix PSTN Prefix
      * @param string $last_request_gmt Date in UNIXTIME GMT format. Get list of updated PSTN Rates starting from date of the last request
@@ -40,46 +38,43 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#get_didww_pstn
      */
-    public function getDidwwPstnRates($auth_string, $country_iso = null, $pstn_prefix = null, $last_request_gmt = null)
+    public function getDidwwPstnRates($country_iso = null, $pstn_prefix = null, $last_request_gmt = null)
     {
-        return $this->_handleQuery('getdidwwpstnrates', compact(['auth_string','country_iso','pstn_prefix','last_request_gmt']));
+        return $this->_handleQuery('getdidwwpstnrates', compact(['country_iso','pstn_prefix','last_request_gmt']));
     }
 
 
     /**
      * This method will change PSTN tariffs for resellers through their Staff panel.
      *
-     * @param string $auth_string User Token for authorization
      * @param array $rates Rate List
      * @return mixed
      *
      * @see https://www.didww.com/api/#update_pstn
      */
-    public function updatePstnRates($auth_string, $rates)
+    public function updatePstnRates($rates)
     {
-        return $this->_handleQuery('updatepstnrates', compact(['auth_string','rates']));
+        return $this->_handleQuery('updatepstnrates', compact(['rates']));
     }
 
 
     /**
      * This method will validate a PSTN Number.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $pstn_number PSTN number
      * @return mixed
      *
      * @see https://www.didww.com/api/#check_pstn
      */
-    public function checkPstnNumber($auth_string, $pstn_number)
+    public function checkPstnNumber($pstn_number)
     {
-        return $this->_handleQuery('checkpstnnumber', compact(['auth_string','pstn_number']));
+        return $this->_handleQuery('checkpstnnumber', compact(['pstn_number']));
     }
 
 
     /**
      * This method will purchase new service.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $country_iso Country ISO Code
      * @param string $city_prefix City Prefix
@@ -93,32 +88,30 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#order_create
      */
-    public function orderCreate($auth_string, $customer_id, $country_iso, $city_prefix, $period, $map_data, $prepaid_funds, $uniq_hash, $city_id, $autorenew_enable = null)
+    public function orderCreate($customer_id, $country_iso, $city_prefix, $period, $map_data, $prepaid_funds, $uniq_hash, $city_id, $autorenew_enable = null)
     {
-        return $this->_handleQuery('ordercreate', compact(['auth_string','customer_id','country_iso','city_prefix','period','map_data','prepaid_funds','uniq_hash','city_id','autorenew_enable']));
+        return $this->_handleQuery('ordercreate', compact(['customer_id','country_iso','city_prefix','period','map_data','prepaid_funds','uniq_hash','city_id','autorenew_enable']));
     }
 
 
     /**
      * This method will cancel order and remove purchased services.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $did_number DID number to cancel
      * @return mixed
      *
      * @see https://www.didww.com/api/#order_cancel
      */
-    public function orderCancel($auth_string, $customer_id, $did_number)
+    public function orderCancel($customer_id, $did_number)
     {
-        return $this->_handleQuery('ordercancel', compact(['auth_string','customer_id','did_number']));
+        return $this->_handleQuery('ordercancel', compact(['customer_id','did_number']));
     }
 
 
     /**
      * This method will renew active service for specific period.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $did_number DID Number to renew
      * @param string $period Month(s) to renew for
@@ -127,16 +120,15 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#order_autorenew
      */
-    public function orderAutorenew($auth_string, $customer_id, $did_number, $period, $uniq_hash)
+    public function orderAutorenew($customer_id, $did_number, $period, $uniq_hash)
     {
-        return $this->_handleQuery('orderautorenew', compact(['auth_string','customer_id','did_number','period','uniq_hash']));
+        return $this->_handleQuery('orderautorenew', compact(['customer_id','did_number','period','uniq_hash']));
     }
 
 
     /**
      * This method will change/update forwarding data for DID Number.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $did_number DID Number
      * @param array $map_data Forwarding data
@@ -144,31 +136,29 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#update_mapping
      */
-    public function updateMapping($auth_string, $customer_id, $did_number, $map_data)
+    public function updateMapping($customer_id, $did_number, $map_data)
     {
-        return $this->_handleQuery('updatemapping', compact(['auth_string','customer_id','did_number','map_data']));
+        return $this->_handleQuery('updatemapping', compact(['customer_id','did_number','map_data']));
     }
 
 
     /**
      * This method will return current Prepaid Balance of customer.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @return mixed
      *
      * @see https://www.didww.com/api/#get_prepaid
      */
-    public function getPrepaidBalance($auth_string, $customer_id)
+    public function getPrepaidBalance($customer_id)
     {
-        return $this->_handleQuery('getprepaidbalance', compact(['auth_string','customer_id']));
+        return $this->_handleQuery('getprepaidbalance', compact(['customer_id']));
     }
 
 
     /**
      * This method will update customer's Prepaid Balance. Add/Remove points.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $prepaid_funds Amount in points
      * @param int $operation_type 1 - Add funds (positive amount), 2 - Remove funds (negative amount)
@@ -177,16 +167,15 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#update_prepaid
      */
-    public function updatePrepaidBalance($auth_string, $customer_id, $prepaid_funds, $operation_type, $uniq_hash)
+    public function updatePrepaidBalance($customer_id, $prepaid_funds, $operation_type, $uniq_hash)
     {
-        return $this->_handleQuery('updateprepaidbalance', compact(['auth_string','customer_id','prepaid_funds','operation_type','uniq_hash']));
+        return $this->_handleQuery('updateprepaidbalance', compact(['customer_id','prepaid_funds','operation_type','uniq_hash']));
     }
 
 
     /**
      * This method will restore canceled and expired DID number within aging period.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $did_number DID Number to be restored
      * @param int $period Period (months)
@@ -196,23 +185,22 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#number_restore
      */
-    public function didRestore($auth_string, $customer_id, $did_number, $period, $uniq_hash, $isrenew = null)
+    public function didRestore($customer_id, $did_number, $period, $uniq_hash, $isrenew = null)
     {
-        return $this->_handleQuery('didrestore', compact(['auth_string','customer_id','did_number','period','uniq_hash','isrenew']));
+        return $this->_handleQuery('didrestore', compact(['customer_id','did_number','period','uniq_hash','isrenew']));
     }
 
 
     /**
      * This method will return configuration settings for reseller.
      *
-     * @param string $auth_string User Token for authorization
      * @return mixed
      *
      * @see https://www.didww.com/api/#get_api_details
      */
-    public function getDidwwApiDetails($auth_string)
+    public function getDidwwApiDetails()
     {
-        return $this->_handleQuery('getdidwwapidetails', compact(['auth_string']));
+        return $this->_handleQuery('getdidwwapidetails');
     }
 
 
@@ -235,7 +223,6 @@ class Didww extends Core
     /**
      * This method will return call data records for specified User, DID number, or date period.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $did_number DID Number
      * @param string $from_date Start date from which call records will be retrieved
@@ -248,16 +235,15 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#get_cdr
      */
-    public function getCdrLog($auth_string, $customer_id = null, $did_number = null, $from_date = null, $to_date = null, $limit = null, $offset = null, $order = null, $order_Dir = null)
+    public function getCdrLog($customer_id = null, $did_number = null, $from_date = null, $to_date = null, $limit = null, $offset = null, $order = null, $order_Dir = null)
     {
-        return $this->_handleQuery('getcdrlog', compact(['auth_string','customer_id','did_number','from_date','to_date','limit','offset','order','order_Dir']));
+        return $this->_handleQuery('getcdrlog', compact(['customer_id','did_number','from_date','to_date','limit','offset','order','order_Dir']));
     }
 
 
     /**
      * This method will return data for invoice generation based on CDR.
      *
-     * @param string $auth_string User Token for authorization
      * @param string $customer_id Customer ID (from your local database, any digit)
      * @param string $from_date Start date from which call records will be retrieved
      * @param string $to_date End date date to which call records will be retrieved
@@ -265,9 +251,9 @@ class Didww extends Core
      *
      * @see https://www.didww.com/api/#history_invoices
      */
-    public function callHistoryInvoices($auth_string, $customer_id = null, $from_date = null, $to_date = null)
+    public function callHistoryInvoices($customer_id = null, $from_date = null, $to_date = null)
     {
-        return $this->_handleQuery('callhistory_invoices', compact(['auth_string','customer_id','from_date','to_date']));
+        return $this->_handleQuery('callhistory_invoices', compact(['customer_id','from_date','to_date']));
     }
 
 }

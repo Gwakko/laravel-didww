@@ -1,0 +1,20 @@
+{
+    "name": "blob/laravel-didww",
+    "description": "A simple Laravel interface for interacting with the Didww API.",
+    "keywords": ["laravel", "didww", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bloby"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Didww\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
